@@ -1,0 +1,41 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-form-field>
+    <input matInput placeholder="Название" formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Описание</mat-label>
+    <textarea matInput formControlName="description" rows="4"></textarea>
+  </mat-form-field>
+
+  <!-- Image -->
+  <input type="file" accept="image/*" (change)="upload($event)">
+  <img *ngIf="form.value.imageUrl" [src]="form.value.imageUrl" width="200">
+
+  <!-- Ingredients -->
+  <div formArrayName="ingredients">
+    <div *ngFor="let ctrl of ingredients.controls; let i = index" [formGroupName]="i">
+      <mat-form-field>
+        <input matInput placeholder="Название" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" placeholder="Кол-во" formControlName="quantity">
+      </mat-form-field>
+
+      <mat-select formControlName="unit">
+        <mat-option *ngFor="let u of units" [value]="u">{{ u }}</mat-option>
+      </mat-select>
+
+      <button mat-icon-button color="warn" (click)="ingredients.removeAt(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" type="button" (click)="addIngredient()">
+    <mat-icon>add</mat-icon> Добавить ингредиент
+  </button>
+
+  <button mat-raised-button color="accent" type="submit">Сохранить</button>
+</form>

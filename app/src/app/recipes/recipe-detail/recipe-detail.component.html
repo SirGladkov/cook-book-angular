@@ -1,0 +1,14 @@
+<ng-container *ngIf="recipe$ | async as r">
+  <img *ngIf="r.imageUrl" [src]="r.imageUrl" class="full-width">
+  <h2>{{ r.title }}</h2>
+  <p>{{ r.description }}</p>
+
+  <h3>Ингредиенты</h3>
+  <mat-list>
+    <mat-list-item *ngFor="let ing of r.ingredients">
+      {{ ing.name }} – {{ ing.quantity }} {{ ing.unit }}
+    </mat-list-item>
+  </mat-list>
+
+  <button mat-raised-button [routerLink]="['../edit', r.id]">Редактировать</button>
+</ng-container>

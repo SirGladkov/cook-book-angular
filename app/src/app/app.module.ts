@@ -7,13 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
 import { MatDialogConfirmComponent } from './shared/mat-dialog-confirm/mat-dialog-confirm.component';
 import { RecipeFormComponent } from './recipes/recipe-form/recipe-form.component';
+import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipeListComponent,
     MatDialogConfirmComponent,
-    RecipeFormComponent
+    RecipeFormComponent,
+    RecipeDetailComponent
   ],
   imports: [
     BrowserModule,

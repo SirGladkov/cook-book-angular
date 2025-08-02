@@ -1,6 +1,6 @@
 ## **📘** Cook-Book Angular
 
-**Live demo:** [https://cook-book-angular-ed28b.web.app\
+**Live demo:** [[https://cook-book-angular-ed28b.web.app\](https://cook-book-angular-ed28b.web.app/)
 **GitHub**](https://cook-book-angular-ed28b.web.app￼GitHub)**:** <https://github.com/SirGladkov/cook-book-angular>
 
 ---

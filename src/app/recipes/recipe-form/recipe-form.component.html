@@ -5,23 +5,19 @@
 
   <form [formGroup]="form" (ngSubmit)="save()">
     <mat-card-content>
-      <!-- Название -->
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Название</mat-label>
         <input matInput formControlName="title">
       </mat-form-field>
 
-      <!-- Описание -->
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Описание</mat-label>
         <textarea matInput rows="4" formControlName="description"></textarea>
       </mat-form-field>
 
-      <!-- Картинка -->
       <input type="file" accept="image/*" (change)="upload($event)">
       <img *ngIf="form.value.imageUrl" [src]="form.value.imageUrl" height="200">
 
-      <!-- Ингредиенты -->
       <h3>Ингредиенты</h3>
       <div formArrayName="ingredients">
         <div
@@ -57,7 +53,8 @@
       </button>
     </mat-card-content>
 
-    <mat-card-actions align="end">
+    <mat-card-actions align="end" class="nav-button">
+      <button mat-button routerLink="/"><mat-icon>arrow_back</mat-icon> Назад</button>
       <button mat-raised-button color="primary" type="submit">Сохранить</button>
     </mat-card-actions>
   </form>

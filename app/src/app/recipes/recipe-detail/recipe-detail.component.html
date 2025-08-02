@@ -1,14 +1,27 @@
 <ng-container *ngIf="recipe$ | async as r">
-  <img *ngIf="r.imageUrl" [src]="r.imageUrl" class="full-width">
-  <h2>{{ r.title }}</h2>
-  <p>{{ r.description }}</p>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ r.title }}</mat-card-title>
+    </mat-card-header>
 
-  <h3>Ингредиенты</h3>
-  <mat-list>
-    <mat-list-item *ngFor="let ing of r.ingredients">
-      {{ ing.name }} – {{ ing.quantity }} {{ ing.unit }}
-    </mat-list-item>
-  </mat-list>
+    <img *ngIf="r.imageUrl" [src]="r.imageUrl" alt="Фото блюда"
+         class="detail-image">
 
-  <button mat-raised-button [routerLink]="['../edit', r.id]">Редактировать</button>
+    <mat-card-content>
+      <h3>Описание</h3>
+      <p class="desc">{{ r.description }}</p>
+
+      <h3>Ингредиенты</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let ing of r.ingredients">
+          {{ ing.name }} — {{ ing.quantity }} {{ ing.unit }}
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+
+    <mat-card-actions align="end" class="nav-button">
+        <button mat-button routerLink="/"><mat-icon>arrow_back</mat-icon> Назад</button>
+        <button mat-raised-button [routerLink]="['/edit', r.id]">Редактировать</button>
+    </mat-card-actions>
+  </mat-card>
 </ng-container>

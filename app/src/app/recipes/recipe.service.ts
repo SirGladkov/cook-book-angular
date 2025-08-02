@@ -52,9 +52,11 @@ export class RecipeService {
     return deleteDoc(doc(this.col, id));
   }
 
-  uploadImage(file: File) {
-    const path = `images/${Date.now()}_${file.name}`;
-    const ref = storageRef(this.storage, path);
-    return uploadBytes(ref, file).then(() => getDownloadURL(ref));
-  }
+  uploadImage(file: File): Promise<string> {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.readAsDataURL(file);
+  });
+}
 }

@@ -1,41 +1,69 @@
-<form [formGroup]="form" (ngSubmit)="save()">
-  <mat-form-field>
-    <input matInput placeholder="Название" formControlName="title">
-  </mat-form-field>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ id ? 'Редактировать' : 'Создать' }} рецепт</mat-card-title>
+  </mat-card-header>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Описание</mat-label>
-    <textarea matInput formControlName="description" rows="4"></textarea>
-  </mat-form-field>
-
-  <!-- Image -->
-  <input type="file" accept="image/*" (change)="upload($event)">
-  <img *ngIf="form.value.imageUrl" [src]="form.value.imageUrl" width="200">
-
-  <!-- Ingredients -->
-  <div formArrayName="ingredients">
-    <div *ngFor="let ctrl of ingredients.controls; let i = index" [formGroupName]="i">
-      <mat-form-field>
-        <input matInput placeholder="Название" formControlName="name">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-card-content>
+      <!-- Название -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Название</mat-label>
+        <input matInput formControlName="title">
       </mat-form-field>
 
-      <mat-form-field>
-        <input matInput type="number" placeholder="Кол-во" formControlName="quantity">
+      <!-- Описание -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Описание</mat-label>
+        <textarea matInput rows="4" formControlName="description"></textarea>
       </mat-form-field>
 
-      <mat-select formControlName="unit">
-        <mat-option *ngFor="let u of units" [value]="u">{{ u }}</mat-option>
-      </mat-select>
+      <!-- Картинка -->
+      <input type="file" accept="image/*" (change)="upload($event)">
+      <img *ngIf="form.value.imageUrl" [src]="form.value.imageUrl" height="200">
 
-      <button mat-icon-button color="warn" (click)="ingredients.removeAt(i)">
-        <mat-icon>delete</mat-icon>
+      <!-- Ингредиенты -->
+      <h3>Ингредиенты</h3>
+      <div formArrayName="ingredients">
+        <div
+          *ngFor="let ctrl of ingredients.controls; let i = index"
+          [formGroupName]="i"
+          class="ingredient-row"
+        >
+          <mat-form-field appearance="fill" style="width: 40%;">
+            <mat-label>Название</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" style="width: 15%;">
+            <mat-label>Кол-во</mat-label>
+            <input matInput type="number" min="1" formControlName="quantity">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" style="width: 20%;">
+            <mat-label>Единица</mat-label>
+            <mat-select formControlName="unit">
+              <mat-option *ngFor="let u of units" [value]="u">{{ u }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-icon-button color="warn" (click)="removeIngredient(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <button mat-button type="button" (click)="addIngredient()">
+        <mat-icon>add</mat-icon> Добавить ингредиент
       </button>
-    </div>
-  </div>
+    </mat-card-content>
 
-  <button mat-raised-button color="primary" type="button" (click)="addIngredient()">
-    <mat-icon>add</mat-icon> Добавить ингредиент
-  </button>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary" type="submit">Сохранить</button>
+    </mat-card-actions>
+  </form>
+</mat-card>
 
-  <button mat-raised-button color="accent" type="submit">Сохранить</button>
-</form>
+<style>
+  .full-width { width: 100%; margin-bottom: 16px; }
+  .ingredient-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+</style>

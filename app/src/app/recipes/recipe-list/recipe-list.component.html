@@ -1,13 +1,17 @@
 <mat-card *ngFor="let r of recipes$ | async" class="recipe-card">
-  <img mat-card-image *ngIf="r.imageUrl" [src]="r.imageUrl | recipeImg" />
-  <mat-card-header>
-    <mat-card-title>{{ r.title }}</mat-card-title>
-    <mat-card-subtitle>{{ r.createdAt.toDate() | date:'short' }}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-actions>
-    <button mat-button [routerLink]="['../detail', r.id]">Открыть</button>
-    <button mat-icon-button color="warn" (click)="delete(r.id!)">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </mat-card-actions>
+  <div class="row">
+    <img *ngIf="r.imageUrl" [src]="r.imageUrl" class="thumb" />
+    <div class="content">
+      <h3>{{ r.title }}</h3>
+      <p class="desc">{{ r.description }}</p>
+    </div>
+  </div>
+
+  <mat-card-actions class="footer-actions">
+  <small class="date">{{ r.createdAt.toDate() | date:'dd.MM.yyyy HH:mm' }}</small>
+  <button mat-button [routerLink]="['/detail', r.id]">Открыть</button>
+  <button mat-icon-button color="warn" (click)="delete(r.id!)">
+    <mat-icon>delete</mat-icon>
+  </button>
+</mat-card-actions>
 </mat-card>

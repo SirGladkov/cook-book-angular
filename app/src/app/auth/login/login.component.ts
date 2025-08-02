@@ -8,15 +8,11 @@ import { Auth, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-
-  constructor(
-    private auth: Auth,
-    private router: Router
-  ) {}
+  constructor(private auth: Auth, private router: Router) {}
 
   login(): void {
     signInWithPopup(this.auth, new GoogleAuthProvider())
       .then(() => this.router.navigate(['/']))
-      .catch(err => console.error(err));
+      .catch(err => console.error('Authentication failed', err));
   }
 }

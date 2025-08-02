@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Auth, signOut } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { authState } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+  user$ = authState(this.auth);
+
+  constructor(private auth: Auth, private router: Router) {}
+
+  async logout() {
+    await signOut(this.auth);
+    this.router.navigate(['/login']);
+  }
 }
